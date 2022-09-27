@@ -23,17 +23,20 @@ public class PlayerController : MonoBehaviour
     public GameObject projectile;
     public Transform projectilePos;
 
-    private void OnEnable() {
-        inputAction.Enable();
-    }
+    //private void OnEnable() {
+    //    inputAction.Enable();
+    //}
 
-    private void OnDisable() {
-        inputAction.Disable();
-    }
+    //private void OnDisable() {
+    //    inputAction.Disable();
+    //}
 
-    private void Awake() {
+    private void Start() {
 
         inputAction = new PlayerAction();
+
+        //Using controller from PlayerInputController
+        inputAction = PlayerInputController.controller.inputAction;
 
         inputAction.Player.Jump.performed += cntxt => Jump();
 

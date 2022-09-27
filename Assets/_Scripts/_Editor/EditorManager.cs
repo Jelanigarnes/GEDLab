@@ -23,16 +23,16 @@ public class EditorManager : MonoBehaviour
     //Will send notifications that something has happened to whoever is interested
     Subject subject = new Subject();
 
-    private void OnEnable() {
-        inputAction.Enable();
-    }
+    //private void OnEnable() {
+    //    inputAction.Enable();
+    //}
 
-    private void OnDisable() {
-        inputAction.Disable();
-    }
+    //private void OnDisable() {
+    //    inputAction.Disable();
+    //}
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         if(instance == null)
         {
@@ -40,6 +40,8 @@ public class EditorManager : MonoBehaviour
         }
 
         inputAction = new PlayerAction();
+
+        inputAction = PlayerInputController.controller.inputAction;
 
         inputAction.Editor.EditorMode.performed += cntxt => EnterEditorMode();
 
@@ -82,6 +84,7 @@ public class EditorManager : MonoBehaviour
                 default:
                     break;
             }
+            subject.Notify();
             instantiated = true; 
         }        
     }
@@ -101,8 +104,8 @@ public class EditorManager : MonoBehaviour
     {
         if(mainCam.enabled == false && editorCam.enabled == true)
         {
-            Time.timeScale = 0;
-            editorMode = true;  
+            editorMode = true;
+            Time.timeScale = 0;  
             Cursor.lockState = CursorLockMode.None;          
         }
         else

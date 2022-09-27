@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Wants to know when another object does something interesting 
+//Wants to know when another object does something and wants to initiate an action 
 public abstract class Observer 
 {
     public abstract void OnNotify();
@@ -13,9 +13,9 @@ public class SpikeBall : Observer
     //The box gameobject which will do something
     GameObject spikeObj;
     //What will happen when this box gets an event
-    SpikeEvents spikeEvent;
+    SpikeEditorEvents spikeEvent;
 
-    public SpikeBall(GameObject spikeObj, SpikeEvents spikeEvent)
+    public SpikeBall(GameObject spikeObj, SpikeEditorEvents spikeEvent)
     {
         this.spikeObj = spikeObj;
         this.spikeEvent = spikeEvent;
@@ -31,6 +31,7 @@ public class SpikeBall : Observer
     void SpikeColor(Color mat)
     {
         //If the box is close to the ground
-        spikeObj.GetComponent<Renderer>().materials[0].color = mat;
+        if (spikeObj) { spikeObj.GetComponent<Renderer>().materials[0].color = mat; }
+       
     }
 }

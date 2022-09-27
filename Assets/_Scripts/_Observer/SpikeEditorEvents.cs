@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Events
-public abstract class SpikeEvents
+public abstract class SpikeEditorEvents
 {
     public abstract Color SpikeEditorColor();
 }
 
 
-public class YellowMat : SpikeEvents
+public class YellowMat : SpikeEditorEvents
 {
     public override Color SpikeEditorColor()
     {
@@ -18,7 +18,7 @@ public class YellowMat : SpikeEvents
 }
 
 
-public class GreenMat : SpikeEvents
+public class GreenMat : SpikeEditorEvents
 {
     public override Color SpikeEditorColor()
     {
