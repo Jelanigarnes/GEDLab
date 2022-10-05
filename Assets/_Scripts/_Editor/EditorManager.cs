@@ -11,23 +11,30 @@ public class EditorManager : MonoBehaviour
 
     public Camera mainCam;
     public Camera editorCam;
+    
 
     public bool editorMode;
 
     Vector3 mousePos;
     public GameObject prefab1;
     public GameObject prefab2;
-    GameObject item;
+    public GameObject item;
     public bool instantiated = false;
+
+    ICommand command;
+
+    UIManager ui;
 
     //Will send notifications that something has happened to whoever is interested
     Subject subject = new Subject();
 
-    //private void OnEnable() {
+    //private void OnEnable()
+    //{
     //    inputAction.Enable();
     //}
 
-    //private void OnDisable() {
+    //private void OnDisable()
+    //{
     //    inputAction.Disable();
     //}
 
@@ -52,13 +59,16 @@ public class EditorManager : MonoBehaviour
         editorMode = false;
 
         mainCam.enabled = true;
-        editorCam.enabled = false;  
+        editorCam.enabled = false;
+
+        ui = GetComponent<UIManager>();
     }  
 
     public void EnterEditorMode()
     {
         mainCam.enabled = !mainCam.enabled;
         editorCam.enabled = !editorCam.enabled;
+        ui.ToggleEditorUI();
     }
 
     public void AddItem(int itemId)
@@ -95,6 +105,10 @@ public class EditorManager : MonoBehaviour
         {
             item.GetComponent<Rigidbody>().useGravity = true;
             item.GetComponent<Collider>().enabled = true;
+
+            command = new PlaceItemCommand(item.transform.position, item.transform);
+            CommandInvoker.AddCommand(command);
+
             instantiated = false; 
         }        
     }

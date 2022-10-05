@@ -194,6 +194,24 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""86474839-1046-46bb-bb88-6012398b6acb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Undo"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e7fa4e7-d4d1-4328-bc5c-5c4616bb321a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +258,28 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""action"": ""AddItem2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""420f785f-1b68-4aab-b5dd-f2d689764039"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9abe0942-42c3-4c8b-b594-db83bc9774cd"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Undo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -258,6 +298,8 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         m_Editor_AddItem1 = m_Editor.FindAction("AddItem1", throwIfNotFound: true);
         m_Editor_AddItem2 = m_Editor.FindAction("AddItem2", throwIfNotFound: true);
         m_Editor_DropItem = m_Editor.FindAction("DropItem", throwIfNotFound: true);
+        m_Editor_Save = m_Editor.FindAction("Save", throwIfNotFound: true);
+        m_Editor_Undo = m_Editor.FindAction("Undo", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -378,6 +420,8 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Editor_AddItem1;
     private readonly InputAction m_Editor_AddItem2;
     private readonly InputAction m_Editor_DropItem;
+    private readonly InputAction m_Editor_Save;
+    private readonly InputAction m_Editor_Undo;
     public struct EditorActions
     {
         private @PlayerAction m_Wrapper;
@@ -386,6 +430,8 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         public InputAction @AddItem1 => m_Wrapper.m_Editor_AddItem1;
         public InputAction @AddItem2 => m_Wrapper.m_Editor_AddItem2;
         public InputAction @DropItem => m_Wrapper.m_Editor_DropItem;
+        public InputAction @Save => m_Wrapper.m_Editor_Save;
+        public InputAction @Undo => m_Wrapper.m_Editor_Undo;
         public InputActionMap Get() { return m_Wrapper.m_Editor; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -407,6 +453,12 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @DropItem.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnDropItem;
                 @DropItem.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnDropItem;
                 @DropItem.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnDropItem;
+                @Save.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Undo.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnUndo;
+                @Undo.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnUndo;
+                @Undo.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnUndo;
             }
             m_Wrapper.m_EditorActionsCallbackInterface = instance;
             if (instance != null)
@@ -423,6 +475,12 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @DropItem.started += instance.OnDropItem;
                 @DropItem.performed += instance.OnDropItem;
                 @DropItem.canceled += instance.OnDropItem;
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
+                @Undo.started += instance.OnUndo;
+                @Undo.performed += instance.OnUndo;
+                @Undo.canceled += instance.OnUndo;
             }
         }
     }
@@ -440,5 +498,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         void OnAddItem1(InputAction.CallbackContext context);
         void OnAddItem2(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
+        void OnSave(InputAction.CallbackContext context);
+        void OnUndo(InputAction.CallbackContext context);
     }
 }
