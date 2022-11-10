@@ -5,8 +5,10 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public Canvas editorUI;
+    public Canvas gameplayUI;
 
     bool editorMode;
+    bool gameplayMode;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,11 +17,18 @@ public class UIManager : MonoBehaviour
         if (editorMode == false)
         {
             editorUI.enabled = false;
+            gameplayUI.enabled = true;
+        }
+        else
+        {
+            editorUI.enabled = true;
+            gameplayUI.enabled = false;
         }
     }
 
   public void ToggleEditorUI()
     {
         editorUI.enabled = !editorUI.enabled; //false to true
+        gameplayUI.enabled = !gameplayUI.enabled;
     }
 }
