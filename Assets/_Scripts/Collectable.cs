@@ -14,6 +14,8 @@ public class Collectable : MonoBehaviour
             }
             else if(heal != 0)
             {
+                //Call method in characterstat
+                PlayerManager.instance.player.GetComponent<CharacterStats>().RecoverHealth(heal);
 
             }
           

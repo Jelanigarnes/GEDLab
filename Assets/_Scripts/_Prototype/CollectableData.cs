@@ -8,6 +8,7 @@ public class CollectableData : ScriptableObject
 {
     public string _name;
     public int _score;
+    public int heal;
     public GameObject _prefab;
 
 }

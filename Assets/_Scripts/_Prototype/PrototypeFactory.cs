@@ -13,14 +13,21 @@ public class PrototypeFactory : MonoBehaviour
     private EditorManager editor;
 
     Coin coinPrototype;
+    FullHeart heartPrototype;
+    //Platform platformPrototype;
+
+    
+
+
     // Start is called before the first frame update
     void Start()
     {
         editor = EditorManager.instance;
 
         coinPrototype = new Coin(allData[0]._prefab, allData[0]._score);
+        heartPrototype = new FullHeart(allData[1]._prefab, allData[1].heal);
 
-        for(int i = 0; i < allData.Count; i++)
+        for (int i = 0; i < allData.Count; i++)
         {
             var button = Instantiate(buttonPrefab);
             button.transform.SetParent(buttonPanel.transform);
@@ -39,6 +46,9 @@ public class PrototypeFactory : MonoBehaviour
         {
             case "Coin":
                 editor.item = coinPrototype.Clone().Spawn();
+                break;
+            case "FullHeart":
+                editor.item = heartPrototype.Clone().Spawn();
                 break;
 
             default:

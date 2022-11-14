@@ -37,4 +37,22 @@ public class CharacterStats : MonoBehaviour
     {
         
     }
+
+    public virtual void RecoverHealth(int heal)
+    {
+        if(currenthealth + heal < maxHealth)
+        {
+            currenthealth += heal;
+        }
+        else
+        {
+            currenthealth = maxHealth;
+        }
+
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(maxHealth, currenthealth);
+        }
+
+    }
 }

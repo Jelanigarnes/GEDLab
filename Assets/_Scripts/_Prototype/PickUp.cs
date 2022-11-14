@@ -15,8 +15,7 @@ public abstract class PickUp : MonoBehaviour
 
 public class Coin: PickUp
 {
-    private int score;
-    private GameObject clone;
+   
 
     public Coin(GameObject clone, int score)
     {
@@ -43,10 +42,8 @@ public class Coin: PickUp
 
 public class FullHeart : PickUp
 {
-    private int heal;
-    private GameObject clone;
 
-    public FullHeart(GameObject clone, int score)
+    public FullHeart(GameObject clone, int heal)
     {
         this.heal = heal;
         this.clone = clone;
